@@ -34,7 +34,7 @@ body{font-family:var(--sans);color:var(--text);background:#fff;overflow-x:hidden
 #prog{position:fixed;top:0;left:0;width:0%;height:2px;background:linear-gradient(90deg,var(--navy),var(--gold));z-index:9999}
 
 /* ── NAV ── */
-#nav{position:fixed;top:0;left:0;width:100%;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,48px);background:rgba(20,24,33,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);z-index:1000}
+#nav{position:fixed;top:0;left:0;width:100%;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,48px);background:rgba(20,24,33,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);z-index:1000;will-change:transform;transform:translate3d(0,0,0)}
 .nl{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nl img{height:28px;mix-blend-mode:screen}
 .nl span{font-weight:600;font-size:14px;color:#fff;white-space:nowrap;letter-spacing:.3px}
@@ -56,10 +56,10 @@ body{font-family:var(--sans);color:var(--text);background:#fff;overflow-x:hidden
    HERO — CINEMATIC SKY
    ══════════════════════════════════════ */
 #hero-section{position:relative;height:300vh;z-index:1}
-#hero-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden}
-#sky-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#hero-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden;will-change:transform}
+#sky-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;will-change:contents;transform:translate3d(0,0,0)}
 #sky-dim{position:absolute;inset:0;background:rgba(10,16,28,.35);z-index:1}
-#hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 32px}
+#hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 32px;will-change:transform,opacity}
 .hero-logo{width:110px;height:auto;margin-bottom:48px;mix-blend-mode:screen}
 .hero-h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,4.8rem);font-weight:400;line-height:1.05;color:#fff;max-width:760px;margin-bottom:28px}
 .hero-h1 em{font-style:italic;color:var(--gold)}
@@ -80,8 +80,8 @@ body{font-family:var(--sans);color:var(--text);background:#fff;overflow-x:hidden
    HOUSE SECTION — EDITORIAL WHITE
    ══════════════════════════════════════ */
 #house-section{position:relative;height:400vh;z-index:2;background:#fff}
-#house-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;padding-bottom:14vh}
-#house-canvas{display:block;width:calc(100% - 48px);max-width:720px;aspect-ratio:16/9;position:relative;z-index:1;-webkit-mask-image:linear-gradient(to bottom,#000 82%,transparent 100%);mask-image:linear-gradient(to bottom,#000 82%,transparent 100%)}
+#house-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;padding-bottom:14vh;will-change:transform}
+#house-canvas{display:block;width:calc(100% - 48px);max-width:720px;aspect-ratio:16/9;position:relative;z-index:1;-webkit-mask-image:linear-gradient(to bottom,#000 82%,transparent 100%);mask-image:linear-gradient(to bottom,#000 82%,transparent 100%);will-change:contents;transform:translate3d(0,0,0)}
 
 /* ── "Your Roof" above house, "Our Promise" + logo below ── */
 #tag-top{position:absolute;top:calc(50% - 34vh);left:50%;transform:translateX(-50%);z-index:10;text-align:center;
@@ -161,7 +161,7 @@ body{font-family:var(--sans);color:var(--text);background:#fff;overflow-x:hidden
 #reviews{padding:100px 32px;background:#f7f8fa;overflow:hidden;position:relative;z-index:2}
 #reviews .sec-label{color:var(--gold)}
 #reviews .sec-title{color:var(--ink)}
-.rt{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:16px 0 32px;cursor:grab;scrollbar-width:none}
+.rt{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:16px 0 32px;cursor:grab;scrollbar-width:none;touch-action:pan-x}
 .rt::-webkit-scrollbar{display:none}.rt:active{cursor:grabbing}
 .rc{flex:0 0 340px;scroll-snap-align:start;padding:32px 28px;background:#fff;border-radius:4px;border:1px solid rgba(0,0,0,.04);transition:transform .3s}
 .rc:hover{transform:translateY(-2px)}
@@ -643,39 +643,38 @@ var hTop=0,hH2=0,hsTop=0,hsH=0;
 function cache(){hTop=heroSec.offsetTop;hH2=heroSec.offsetHeight-innerHeight;hsTop=houseSec.offsetTop;hsH=houseSec.offsetHeight-innerHeight}
 addEventListener('resize',cache);setTimeout(cache,400);
 
-var lastS=-1,lastH=-1;
-function scrollNow(){
-  var y=pageYOffset;
-  if(hH2>0){var p=Math.max(0,Math.min(1,(y-hTop)/hH2));var f=Math.min(SKY_N-1,Math.max(0,Math.round(p*(SKY_N-1))));if(f!==lastS){lastS=f;drawSky(f)}}
-  if(hsH>0){
-    var p2=Math.max(0,Math.min(1,(y-hsTop)/hsH));
-    var f2=Math.min(HOUSE_N-1,Math.max(0,Math.round(p2*(HOUSE_N-1))));
-    if(f2!==lastH){lastH=f2;drawHouse(f2)}
-  }
-}
+var lastS=-1,lastH=-1,cachedDH=0;
+function updateCachedDH(){cachedDH=document.documentElement.scrollHeight-innerHeight}
+addEventListener('resize',updateCachedDH);setTimeout(updateCachedDH,400);
 
-var raf=false;
-function scrollUI(){
-  if(raf)return;raf=true;
-  requestAnimationFrame(function(){raf=false;
-    var y=pageYOffset,dH=document.documentElement.scrollHeight-innerHeight;
-    prog.style.width=((y/dH)*100)+'%';
-    // Nav is fixed — no scroll transforms
+var scrollTick=false;
+function onScroll(){
+  if(scrollTick)return;scrollTick=true;
+  requestAnimationFrame(function(){scrollTick=false;
+    var y=pageYOffset;
 
-    if(hH2>0){var p=Math.max(0,Math.min(1,(y-hTop)/hH2));var fadeP=Math.max(0,(p-0.15)/0.35);heroContent.style.opacity=Math.max(0,1-fadeP);heroContent.style.transform='translateY('+(-fadeP*40)+'px)';skyDim.style.opacity=Math.max(0,.35-p*.4)}
+    // Canvas frame sequencing
+    if(hH2>0){var p=Math.max(0,Math.min(1,(y-hTop)/hH2));var f=Math.min(SKY_N-1,Math.max(0,Math.round(p*(SKY_N-1))));if(f!==lastS){lastS=f;drawSky(f)}}
+    if(hsH>0){
+      var p2=Math.max(0,Math.min(1,(y-hsTop)/hsH));
+      var f2=Math.min(HOUSE_N-1,Math.max(0,Math.round(p2*(HOUSE_N-1))));
+      if(f2!==lastH){lastH=f2;drawHouse(f2)}
+    }
+
+    // UI updates
+    if(cachedDH>0)prog.style.width=((y/cachedDH)*100)+'%';
+
+    if(hH2>0){var p3=Math.max(0,Math.min(1,(y-hTop)/hH2));var fadeP=Math.max(0,(p3-0.15)/0.35);heroContent.style.opacity=Math.max(0,1-fadeP);heroContent.style.transform='translate3d(0,'+(-fadeP*40)+'px,0)';skyDim.style.opacity=Math.max(0,.35-p3*.4)}
     if(hsH>0){
       var sp=Math.max(0,Math.min(1,(y-hsTop)/hsH));
-      // "Your Roof" above — appears early
       if(sp>=0.03)tagTop.classList.add('vis');
-      // "Our Anchor" + logo below — appears as roof completes
       if(sp>=0.60)tagBottom.querySelector('.tag-bot-text').classList.add('vis');
       if(sp>=0.70)tagBottom.querySelector('.tag-bot-logo').classList.add('vis');
       if(sp>=0.80)tagBottom.querySelector('.tag-bot-sub').classList.add('vis');
     }
   });
 }
-addEventListener('scroll',scrollNow,{passive:true});
-addEventListener('scroll',scrollUI,{passive:true});
+addEventListener('scroll',onScroll,{passive:true});
 
 // Specs
 var snums=document.querySelectorAll('.snum'),counted=false;
@@ -693,7 +692,8 @@ for(var d=0;d<tCards.length;d++){var dot=document.createElement('button');dot.cl
 track.addEventListener('scroll',function(){var w=tCards[0].offsetWidth+20,a=Math.round(track.scrollLeft/w),ds=dots.querySelectorAll('.dot');for(var i=0;i<ds.length;i++){if(i===a)ds[i].classList.add('on');else ds[i].classList.remove('on')}});
 track.addEventListener('mousedown',function(e){dragging=true;sx=e.pageX-track.offsetLeft;sl=track.scrollLeft});
 track.addEventListener('mouseleave',function(){dragging=false});track.addEventListener('mouseup',function(){dragging=false});
-track.addEventListener('mousemove',function(e){if(!dragging)return;e.preventDefault();track.scrollLeft=sl-((e.pageX-track.offsetLeft)-sx)*1.5});
+var dragTick=false;
+track.addEventListener('mousemove',function(e){if(!dragging)return;e.preventDefault();if(dragTick)return;dragTick=true;requestAnimationFrame(function(){dragTick=false;track.scrollLeft=sl-((e.pageX-track.offsetLeft)-sx)*1.5})});
 
 // Skip button — jump past the house video section
 document.getElementById('skip-btn').addEventListener('click',function(){
