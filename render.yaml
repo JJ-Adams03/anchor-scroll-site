@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: anchor-scroll-site
+    runtime: static
+    buildCommand: echo "Static site - no build needed"
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=86400
