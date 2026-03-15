@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" fill="currentColor">
+  <!-- Ring at top -->
+  <circle cx="50" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="5"/>
+  <!-- Vertical shaft -->
+  <rect x="47" y="26" width="6" height="64" rx="3"/>
+  <!-- Crossbar -->
+  <rect x="30" y="48" width="40" height="5" rx="2.5"/>
+  <!-- Left fluke -->
+  <path d="M50 90 C50 90, 20 88, 14 68" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  <path d="M14 68 L10 76 L22 72" fill="currentColor"/>
+  <!-- Right fluke -->
+  <path d="M50 90 C50 90, 80 88, 86 68" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  <path d="M86 68 L90 76 L78 72" fill="currentColor"/>
+  <!-- Bottom point -->
+  <path d="M47 88 L50 100 L53 88" fill="currentColor"/>
+</svg>

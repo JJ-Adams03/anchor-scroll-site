@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anchor Roofing | Omaha's Premier Roofing Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C8962E;--gold-hover:#b8871f;--gold-glow:rgba(200,150,46,.3);
+  --navy:#3b5998;--navy-light:#5a7bc4;
+  --ink:#141821;--text:#2a2d35;--gray:#636878;--muted:#9ca0ab;
+  --cream:#f8f5f0;--offwhite:#fdfcfa;
+  --serif:'Instrument Serif',serif;
+  --sans:'Space Grotesk',sans-serif;
+}
+html{font-size:16px;scroll-behavior:auto}
+body{font-family:var(--sans);color:var(--text);background:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--navy);color:#fff}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10000;transition:opacity 1s,visibility 1s}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#loader img{width:72px;margin-bottom:24px;mix-blend-mode:screen;animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4;transform:scale(.96)}50%{opacity:1;transform:scale(1)}}
+#loader-text{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:20px}
+#lbw{width:120px;height:1px;background:rgba(255,255,255,.06);overflow:hidden}
+#lb{width:0%;height:100%;background:var(--gold);transition:width .08s linear}
+
+/* ── PROGRESS ── */
+#prog{position:fixed;top:0;left:0;width:0%;height:2px;background:linear-gradient(90deg,var(--navy),var(--gold));z-index:9999}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;width:100%;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,48px);background:rgba(20,24,33,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);z-index:1000}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.nl img{height:28px;mix-blend-mode:screen}
+.nl span{font-weight:600;font-size:14px;color:#fff;white-space:nowrap;letter-spacing:.3px}
+.nav-right{display:flex;align-items:center;gap:28px}
+.nav-svcs{display:flex;gap:24px}
+.nav-svcs a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-svcs a:hover{color:#fff}
+.ncta{background:var(--gold);color:#fff;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .2s;flex-shrink:0}
+.ncta:hover{background:var(--gold-hover)}
+@media(max-width:768px){
+  #nav{height:56px;padding:0 16px}
+  .nav-svcs{display:none}
+  .nl img{height:24px}
+  .nl span{font-size:13px}
+  .ncta{padding:8px 18px;font-size:12px}
+}
+
+/* ══════════════════════════════════════
+   HERO — CINEMATIC SKY
+   ══════════════════════════════════════ */
+#hero-section{position:relative;height:300vh;z-index:1}
+#hero-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden}
+#sky-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#sky-dim{position:absolute;inset:0;background:rgba(10,16,28,.35);z-index:1}
+#hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 32px}
+.hero-logo{width:110px;height:auto;margin-bottom:48px;mix-blend-mode:screen}
+.hero-h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,4.8rem);font-weight:400;line-height:1.05;color:#fff;max-width:760px;margin-bottom:28px}
+.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.85);max-width:460px;line-height:1.75;margin-bottom:52px;font-weight:400}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;background:var(--gold);color:#fff;font-size:13px;font-weight:700;text-decoration:none;border-radius:4px;transition:all .3s;box-shadow:0 4px 20px var(--gold-glow);letter-spacing:.5px;text-transform:uppercase}
+.btn-gold:hover{background:var(--gold-hover);transform:translateY(-2px);box-shadow:0 8px 30px var(--gold-glow)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600;text-decoration:none;border-radius:4px;border:1px solid rgba(255,255,255,.15);transition:all .3s;letter-spacing:.5px}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);color:#fff;transform:translateY(-2px)}
+.scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-cue span{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.scroll-pill{width:18px;height:32px;border:1.5px solid rgba(255,255,255,.25);border-radius:10px;position:relative}
+.scroll-pill::after{content:'';width:3px;height:6px;background:var(--gold);border-radius:3px;position:absolute;top:5px;left:50%;transform:translateX(-50%);animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(10px)}}
+#sky-fade{position:absolute;bottom:0;left:0;width:100%;height:50vh;background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.2) 35%,rgba(255,255,255,.65) 65%,#fff 100%);z-index:3;pointer-events:none}
+
+/* ══════════════════════════════════════
+   HOUSE SECTION — EDITORIAL WHITE
+   ══════════════════════════════════════ */
+#house-section{position:relative;height:400vh;z-index:2;background:#fff}
+#house-sticky{position:sticky;top:0;width:100%;height:100vh;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;padding-bottom:14vh}
+#house-canvas{display:block;width:calc(100% - 48px);max-width:720px;aspect-ratio:16/9;position:relative;z-index:1;-webkit-mask-image:linear-gradient(to bottom,#000 82%,transparent 100%);mask-image:linear-gradient(to bottom,#000 82%,transparent 100%)}
+
+/* ── "Your Roof" above house, "Our Promise" + logo below ── */
+#tag-top{position:absolute;top:calc(50% - 34vh);left:50%;transform:translateX(-50%);z-index:10;text-align:center;
+  opacity:0;transform:translateX(-50%) translateY(10px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+#tag-top.vis{opacity:1;transform:translateX(-50%) translateY(0)}
+.tag-top-text{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;color:var(--ink);letter-spacing:2px}
+
+#tag-bottom{position:absolute;bottom:3vh;left:50%;transform:translateX(-50%);z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center}
+.tag-bot-text{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;color:var(--ink);line-height:1.1;
+  opacity:0;transform:translateY(14px);transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)}
+.tag-bot-text.vis{opacity:1;transform:translateY(0)}
+.tag-bot-logo{width:clamp(100px,14vw,160px);height:auto;margin-top:20px;
+  opacity:0;transform:translateY(10px);transition:opacity .9s cubic-bezier(.4,0,.2,1) .15s,transform .9s cubic-bezier(.4,0,.2,1) .15s}
+.tag-bot-logo.vis{opacity:1;transform:translateY(0)}
+.tag-bot-sub{font-size:11px;font-weight:400;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:16px;
+  opacity:0;transition:opacity .8s cubic-bezier(.4,0,.2,1) .25s}
+.tag-bot-sub.vis{opacity:1}
+
+/* ── Service cards — right side, bold trade specialties ── */
+#cards{position:absolute;right:max(4vw,28px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:40px;z-index:10;width:300px}
+.card{padding:0 0 0 20px;border-left:3px solid transparent;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1),border-color .5s}
+.card.vis{opacity:1;transform:translateY(0);border-left-color:var(--gold)}
+.card-icon{margin-bottom:10px;color:var(--navy);opacity:.6}
+.card-num{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
+.card h3{font-size:clamp(1.2rem,1.8vw,1.5rem);font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:.1px;line-height:1.2}
+.card p{font-size:14px;line-height:1.6;color:#636878}
+
+@media(max-width:1200px){
+  #cards{width:260px;right:max(2vw,12px)}
+  .card h3{font-size:1.2rem}
+}
+@media(max-width:900px){
+  #cards{position:absolute;right:auto;left:50%;top:auto;bottom:3vh;transform:translateX(-50%);flex-direction:row;width:calc(100% - 32px);max-width:420px;overflow-x:auto;gap:12px}
+  .card{flex:0 0 150px;border-left:none;border-top:2px solid transparent;padding:12px 0 0 0}
+  .card.vis{border-top-color:var(--gold)}
+  .card p{display:none}
+}
+
+/* ══════════════════════════════════════
+   CTA BAND — dark navy, authoritative
+   ══════════════════════════════════════ */
+#cta-band{padding:80px 32px;background:var(--ink);text-align:center;position:relative;z-index:2}
+.cta-band-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;color:#fff;margin-bottom:28px;line-height:1.2}
+.cta-band-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 44px;background:var(--gold);color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;text-decoration:none;border-radius:4px;transition:all .3s;box-shadow:0 4px 24px var(--gold-glow);letter-spacing:.3px}
+.cta-band-btn:hover{background:var(--gold-hover);transform:translateY(-2px);box-shadow:0 8px 32px var(--gold-glow)}
+
+/* ══════════════════════════════════════
+   STATS — dark navy, confident
+   ══════════════════════════════════════ */
+#specs{padding:100px 32px;background:#111827;position:relative;z-index:2}
+.sg{display:flex;justify-content:center;max-width:800px;margin:0 auto;text-align:center}
+.si{flex:1;padding:32px 16px;position:relative}
+.si:not(:last-child)::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:1px;height:36px;background:rgba(255,255,255,.08)}
+.snum{font-family:var(--sans);font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;color:#fff;line-height:1;margin-bottom:8px;white-space:nowrap}
+.snum.counting{text-shadow:0 0 24px rgba(200,150,46,.2)}
+.slab{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:2.5px;font-weight:500;white-space:nowrap}
+@media(max-width:768px){.sg{display:grid;grid-template-columns:1fr 1fr}.si::after{display:none}}
+
+/* ══════════════════════════════════════
+   SERVICES — dark, bold
+   ══════════════════════════════════════ */
+#features{padding:100px 32px;background:#1a1f2e;position:relative;z-index:2}
+.sec-label{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:16px;font-weight:600}
+.sec-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;text-align:center;margin-bottom:60px;color:#fff}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:960px;margin:0 auto;background:rgba(255,255,255,.06)}
+.fc{padding:40px 28px;background:#1a1f2e;border-radius:0;transition:background .3s}
+.fc:hover{background:#1e2436}
+.fi{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);border-radius:4px;margin-bottom:18px}
+.fi svg{stroke:var(--gold)}
+.fc h3{font-size:16px;font-weight:700;margin-bottom:8px;color:#fff;letter-spacing:.2px}
+.fc p{font-size:13px;line-height:1.65;color:rgba(255,255,255,.5)}
+@media(max-width:768px){.fg{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════
+   REVIEWS — clean white
+   ══════════════════════════════════════ */
+#reviews{padding:100px 32px;background:#f7f8fa;overflow:hidden;position:relative;z-index:2}
+#reviews .sec-label{color:var(--gold)}
+#reviews .sec-title{color:var(--ink)}
+.rt{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:16px 0 32px;cursor:grab;scrollbar-width:none}
+.rt::-webkit-scrollbar{display:none}.rt:active{cursor:grabbing}
+.rc{flex:0 0 340px;scroll-snap-align:start;padding:32px 28px;background:#fff;border-radius:4px;border:1px solid rgba(0,0,0,.04);transition:transform .3s}
+.rc:hover{transform:translateY(-2px)}
+.rs{color:var(--gold);font-size:14px;margin-bottom:14px;letter-spacing:3px}
+.rx{font-size:13px;line-height:1.8;color:var(--gray);margin-bottom:18px;font-style:italic}
+.ra{font-size:13px;font-weight:700;color:var(--ink)}.rm{font-size:9px;color:var(--muted);margin-top:3px}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:20px}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.1);border:none;cursor:pointer;padding:0;transition:all .3s}
+.dot.on{background:var(--ink);width:20px;border-radius:3px}
+@media(max-width:768px){.rc{flex:0 0 280px;padding:24px 20px}}
+
+/* ══════════════════════════════════════
+   FINAL CTA — dark navy, authoritative
+   ══════════════════════════════════════ */
+#cta{padding:120px 32px;text-align:center;background:var(--ink);position:relative;z-index:2}
+.cta-c{max-width:520px;margin:0 auto}
+.cta-t{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;margin-bottom:16px;line-height:1.2;color:#fff}
+.cta-s{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:40px;line-height:1.7}
+.cta-b{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-p{font-size:11px;color:rgba(255,255,255,.3);margin-top:20px}
+.cta-p a{color:var(--gold);text-decoration:none;font-weight:600}
+
+/* ══════════════════════════════════════
+   PARTNERS
+   ══════════════════════════════════════ */
+#partners{padding:72px 32px;text-align:center;background:#f7f8fa;position:relative;z-index:2}
+.partners-label{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:32px;font-weight:500}
+.partners-row{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;max-width:720px;margin:0 auto;opacity:.3;transition:opacity .3s}
+.partners-row:hover{opacity:.5}
+.pn{font-size:12px;font-weight:700;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase}
+
+#footer{padding:52px 32px 32px;background:#0a0e18;color:rgba(255,255,255,.4)}
+.fgr{max-width:960px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.fb img{height:32px;margin-bottom:14px;mix-blend-mode:screen}
+.fb p{font-size:11px;line-height:1.8;max-width:220px}
+.fcol h4{font-size:9px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:14px;text-transform:uppercase;letter-spacing:2px}
+.fcol a{display:block;font-size:11px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.fcol a:hover{color:rgba(255,255,255,.7)}
+.fbot{max-width:960px;margin:36px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center;font-size:10px}
+.fbot a{color:rgba(255,255,255,.2);text-decoration:none}
+@media(max-width:768px){.fgr{grid-template-columns:1fr 1fr;gap:24px}.fbot{flex-direction:column;gap:8px;text-align:center}}
+
+/* ── FAQ ── */
+.faq-item{border-bottom:1px solid rgba(0,0,0,.06)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 0;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);text-align:left;transition:color .2s}
+.faq-q:hover{color:var(--navy)}
+.faq-q svg{flex-shrink:0;transition:transform .3s;color:var(--muted)}
+.faq-q.open svg{transform:rotate(180deg);color:var(--gold)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .4s}
+.faq-a.open{max-height:300px;padding-bottom:20px}
+.faq-a p{font-size:13px;line-height:1.8;color:var(--gray)}
+
+/* ── Area links ── */
+.area-links{display:flex;flex-wrap:wrap;gap:12px 24px}
+.area-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.5px;transition:color .2s}
+.area-links a:hover{color:#fff}
+
+/* ── Footer social ── */
+.f-social{display:flex;gap:12px;margin-top:14px}
+.f-social a{color:rgba(255,255,255,.3);transition:color .2s}
+.f-social a:hover{color:var(--gold)}
+
+/* ── Skip button ── */
+#skip-btn{position:absolute;bottom:max(2vh,12px);right:max(3vw,20px);z-index:20;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;background:rgba(0,0,0,.04);
+  border:1px solid rgba(0,0,0,.06);border-radius:40px;
+  font-family:var(--sans);font-size:11px;font-weight:500;color:var(--gray);
+  cursor:pointer;transition:all .3s;letter-spacing:.3px}
+#skip-btn:hover{background:rgba(0,0,0,.07);color:var(--ink)}
+#skip-btn svg{opacity:.5}
+
+.fin{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}.fin.vis{opacity:1;transform:translateY(0)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#f5f5f5}::-webkit-scrollbar-thumb{background:rgba(59,89,152,.15);border-radius:2px}
+
+/* ══════════════════════════════════════
+   MOBILE — comprehensive fixes
+   ══════════════════════════════════════ */
+@media(max-width:768px){
+  /* Nav — handled by responsive rule above */
+
+  /* Hero */
+  #hero-section{height:250vh}
+  #hero-content{padding:0 20px}
+  .hero-logo{width:80px;margin-bottom:32px}
+  .hero-h1{font-size:2rem;margin-bottom:20px}
+  .hero-sub{font-size:13px;margin-bottom:32px;max-width:320px}
+  .hero-btns{flex-direction:column;align-items:center;gap:10px}
+  .btn-gold,.btn-ghost{width:100%;max-width:280px;justify-content:center;padding:14px 24px;font-size:13px}
+  .scroll-cue{bottom:24px}
+
+  /* House section */
+  #house-section{height:300vh}
+  #house-sticky{padding-bottom:18vh}
+  #house-canvas{width:calc(100% - 24px);max-width:100%}
+  #tag-top{top:calc(50% - 30vh)}
+  .tag-top-text{font-size:1.1rem}
+  #tag-bottom{bottom:1.5vh}
+  .tag-bot-text{font-size:1.4rem}
+  .tag-bot-logo{width:80px}
+  .tag-bot-sub{font-size:9px;letter-spacing:1.5px;margin-top:10px}
+  #skip-btn{bottom:auto;top:10px;right:10px;padding:6px 12px;font-size:10px}
+
+  /* CTA Band */
+  #cta-band{padding:60px 20px}
+  .cta-band-title{font-size:1.3rem}
+  .cta-band-btn{padding:14px 32px;font-size:13px;width:100%;max-width:300px;justify-content:center}
+
+  /* Stats */
+  #specs{padding:60px 20px}
+  .si{padding:20px 10px}
+  .snum{font-size:1.8rem}
+  .slab{font-size:8px;letter-spacing:1.5px}
+
+  /* Services */
+  #features{padding:60px 16px}
+  .sec-title{font-size:1.4rem;margin-bottom:36px}
+  .fc{padding:28px 20px}
+  .fc h3{font-size:15px}
+  .fc p{font-size:12px}
+
+  /* Anchor Difference — override inline styles */
+  #difference{padding:60px 16px!important}
+  #difference>div:last-child{grid-template-columns:1fr!important;gap:0!important;background:transparent!important}
+  #difference>div:last-child>div{padding:28px 20px!important;border-bottom:1px solid rgba(0,0,0,.06)}
+  #difference>div:last-child>div:last-child{border-bottom:none}
+  #difference>div:last-child>div>div:first-child{font-size:1.4rem!important}
+
+  /* Reviews */
+  #reviews{padding:60px 16px}
+  .rc{flex:0 0 260px;padding:24px 18px}
+  .rx{font-size:12px}
+  .dots{gap:8px;margin-top:16px}
+  .dot{width:8px;height:8px}
+  .dot.on{width:24px}
+
+  /* Contractor Guide */
+  #guide{padding:60px 16px!important}
+  #guide>div:nth-child(3){grid-template-columns:1fr!important;gap:32px!important}
+
+  /* FAQ */
+  #faq{padding:60px 16px!important}
+  .faq-q{font-size:14px}
+
+  /* Service Areas */
+  #areas{padding:60px 16px!important}
+  #areas>div:nth-child(3){grid-template-columns:1fr!important;gap:24px!important}
+  #areas iframe{min-height:240px}
+
+  /* Final CTA */
+  #cta{padding:80px 20px}
+  .cta-t{font-size:1.4rem}
+  .cta-s{font-size:13px}
+  .cta-b{flex-direction:column;align-items:center}
+  .cta-b .btn-gold,.cta-b .btn-ghost{width:100%;max-width:300px;justify-content:center}
+
+  /* Partners */
+  #partners{padding:48px 16px}
+  .partners-row{gap:20px}
+  .pn{font-size:10px}
+
+  /* Footer */
+  #footer{padding:36px 16px 24px}
+  .fgr{grid-template-columns:1fr!important;gap:28px}
+  .fb p{max-width:100%}
+  .fbot{font-size:9px}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <img src="images.jpg" alt="Anchor Roofing">
+  <div id="loader-text">Loading</div>
+  <div id="lbw"><div id="lb"></div></div>
+</div>
+<div id="prog"></div>
+
+<nav id="nav">
+  <a href="#" class="nl"><img src="images.jpg" alt=""><span>Anchor Roofing</span></a>
+  <div class="nav-right">
+    <div class="nav-svcs">
+      <a href="#features">Residential Roofing</a>
+      <a href="#features">Commercial</a>
+      <a href="#features">Siding</a>
+    </div>
+    <a href="#cta" class="ncta">Free Roof Inspection</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero-section">
+  <div id="hero-sticky">
+    <canvas id="sky-canvas"></canvas>
+    <div id="sky-dim"></div>
+    <div id="hero-content">
+      <img src="images.jpg" alt="Anchor Roofing" class="hero-logo">
+      <h1 class="hero-h1">Storms happen.<br>Your <em>roofing experience</em><br>shouldn't be one.</h1>
+      <p class="hero-sub">Top-quality roof replacement, repair, and the kind of customer service that makes the whole process feel like smooth sailing.</p>
+      <div class="hero-btns">
+        <a href="#cta" class="btn-gold">Schedule Free Inspection</a>
+        <a href="tel:+14028849491" class="btn-ghost">(402) 884-9491</a>
+      </div>
+    </div>
+    <div class="scroll-cue"><div class="scroll-pill"></div><span>Scroll</span></div>
+    <div id="sky-fade"></div>
+  </div>
+</section>
+
+<!-- ═══ HOUSE SHOWCASE ═══ -->
+<section id="house-section">
+  <div id="house-sticky">
+    <div id="tag-top">
+      <div class="tag-top-text">Your Roof</div>
+    </div>
+    <canvas id="house-canvas"></canvas>
+    <button id="skip-btn" aria-label="Skip to content"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 4 18 12 6 20"/></svg>Skip</button>
+    <div id="tag-bottom">
+      <div class="tag-bot-text">Our Promise</div>
+      <img src="images.jpg" alt="Anchor Roofing" class="tag-bot-logo">
+      <div class="tag-bot-sub">Omaha's Most Trusted Roofer</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══ -->
+<section id="cta-band" class="fin">
+  <h2 class="cta-band-title">Ready to protect what matters most?</h2>
+  <a href="https://anchorroofing.com/contact-us/" class="cta-band-btn" target="_blank">Schedule Free Inspection</a>
+</section>
+
+<!-- ═══ SPECS ═══ -->
+<section id="specs" class="fin">
+  <div class="sg">
+    <div class="si"><div class="snum" data-target="40" data-suffix="+">0</div><div class="slab">Years Experience</div></div>
+    <div class="si"><div class="snum" data-target="200" data-suffix="+">0</div><div class="slab">Google Reviews</div></div>
+    <div class="si"><div class="snum" data-target="5" data-suffix="" data-decimal="true">0</div><div class="slab">Star Rating</div></div>
+    <div class="si"><div class="snum" data-target="6" data-suffix="+">0</div><div class="slab">Cities Served</div></div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="features" class="fin">
+  <div class="sec-label">Our Services</div>
+  <h2 class="sec-title">Every Layer of Protection Your Home Needs</h2>
+  <div class="fg">
+    <div class="fc"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><h3>Roof Replacement</h3><p>From material delivery through deck inspection, property protection, installation and cleanup — your Omaha roof replacement will be smooth sailing.</p></div>
+    <div class="fc"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"/><polyline points="13 11 9 17 15 17 11 23"/></svg></div><h3>Storm Damage Repair</h3><p>We understand the stress foul weather places on homeowners. We help with insurance claims and adjusters, and execute painless, complete storm damage repair.</p></div>
+    <div class="fc"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><h3>Commercial Roofing</h3><p>From small repairs to total replacement — low slope, flat roof, or commercial tile. Industry-standard products with the highest level of workmanship.</p></div>
+    <div class="fc"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><h3>Gutter Services</h3><p>Seamless gutter systems that combine protection with curb appeal. Precision installation, custom colors, and long-lasting performance.</p></div>
+    <div class="fc"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3>Siding Installation</h3><p>Vinyl, engineered wood, or fiber cement — our team delivers durable materials, clean installation, and clear communication for lasting curb appeal.</p></div>
+    <div class="fc"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Free Roof Inspection</h3><p>A no-obligation inspection that examines the entire roof system — gutters, windows, ventilation, A/C units. We walk you through every finding.</p></div>
+  </div>
+</section>
+
+<!-- ═══ THE ANCHOR DIFFERENCE ═══ -->
+<section id="difference" class="fin" style="padding:100px 32px;background:#f7f8fa;position:relative;z-index:2">
+  <div class="sec-label" style="color:var(--gold)">The Anchor Difference</div>
+  <h2 class="sec-title" style="color:var(--ink)">What Makes Us Different</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:960px;margin:0 auto;background:rgba(0,0,0,.06)">
+    <div style="padding:48px 32px;background:#f7f8fa;text-align:center">
+      <div style="font-family:var(--serif);font-size:2rem;color:var(--ink);margin-bottom:12px">Communication</div>
+      <p style="font-size:13px;line-height:1.7;color:var(--gray)">We wouldn't have it any other way. Staying in touch allows us to set and understand expectations. You deserve to know everything happening under — and on top of — your roof.</p>
+    </div>
+    <div style="padding:48px 32px;background:#f7f8fa;text-align:center">
+      <div style="font-family:var(--serif);font-size:2rem;color:var(--ink);margin-bottom:12px">Property Protection</div>
+      <p style="font-size:13px;line-height:1.7;color:var(--gray)">A new roof protects your home and everything in it. We start every job by making sure your windows, plants, and shrubs are also well protected.</p>
+    </div>
+    <div style="padding:48px 32px;background:#f7f8fa;text-align:center">
+      <div style="font-family:var(--serif);font-size:2rem;color:var(--ink);margin-bottom:12px">Complete Cleanup</div>
+      <p style="font-size:13px;line-height:1.7;color:var(--gray)">The job is not complete until your home looks like it did before we arrived. Except, of course, for your amazing new roof.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTRACTOR GUIDE ═══ -->
+<section id="guide" class="fin" style="padding:100px 32px;background:var(--ink);position:relative;z-index:2">
+  <div class="sec-label">Protect Yourself</div>
+  <h2 class="sec-title">What to Look for in an Omaha Roofing Contractor</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:900px;margin:0 auto">
+    <div>
+      <h3 style="font-family:var(--serif);font-size:1.4rem;color:#fff;margin-bottom:20px;font-weight:400">Questions to Ask Contractors</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:20px">When vetting a potential contractor, ask these simple questions. If they can't be answered easily, continue your search.</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:12px">
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>Can I see your contractor's license?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>Do you have general liability and workers' comp insurance?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>Where is your office and headquarters?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>What is the duration of your warranty?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>What training have your installers completed?</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:var(--serif);font-size:1.4rem;color:#fff;margin-bottom:20px;font-weight:400">Questions They Should Ask You</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:20px">If a contractor isn't asking questions like these, they may not have your best interest in mind.</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:12px">
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>Have you dealt with an insurance claim before?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>What's most important to you about this project?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>Do you currently have any leaks?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>How involved do you like to be — every step, or hands-off?</li>
+        <li style="font-size:13px;color:rgba(255,255,255,.7);padding-left:20px;position:relative;line-height:1.6"><span style="position:absolute;left:0;color:var(--gold)">&#10003;</span>Is there other storm damage that needs to be reported?</li>
+      </ul>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:48px;font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.4rem);color:rgba(255,255,255,.6);font-style:italic">If integrity and quality workmanship matter to you, you're in the right place.</p>
+</section>
+
+<!-- ═══ REVIEWS ═══ -->
+<section id="reviews" class="fin">
+  <div class="sec-label" style="color:var(--gold)">What Our Clients Say</div>
+  <h2 class="sec-title" style="color:var(--ink)">200+ Five-Star Google Reviews</h2>
+  <div class="rt" id="rt">
+    <div class="rc"><div class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rx">"Five stars is nowhere near enough! Anchor is absolutely the best company to work with. They went above and beyond in getting my work done and insurance claim processed quickly. They worked Christmas Eve and New Year's Eve to get the work done!"</p><div class="ra">Dan Swain</div><div class="rm">Google Review</div></div>
+    <div class="rc"><div class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rx">"The professionalism of Caleb at Anchor Roofing was top notch. We knew that if there were any concerns he would do his very best to handle them swiftly and to our satisfaction. Caleb never lost touch with us and followed through until everything was complete and inspected."</p><div class="ra">Janelle Sahr</div><div class="rm">Google Review</div></div>
+    <div class="rc"><div class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rx">"We recently had our siding replaced by Anchor Roofing. Jake did a great job working with me throughout the process. His deliberate demeanor carried through to the project. The James Hardie siding has greatly enhanced the exterior integrity and curb appeal of our home."</p><div class="ra">Ryan Clayton</div><div class="rm">Google Review</div></div>
+    <div class="rc"><div class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rx">"Thanks so much to the team at Anchor Roofing for their help in navigating insurance company denials and working through the system to help get our claim resolved, and finishing our home with a terrific new roof! They delivered on their promises and had the utmost integrity."</p><div class="ra">Bart Lovgren</div><div class="rm">Google Review</div></div>
+    <div class="rc"><div class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rx">"They were very thorough and recommended the roof needed complete replacement along with attic venting, gutters, and north siding. Three different crews handled everything in a very timely manner. Competitive pricing and the best value. I would definitely recommend them very highly!"</p><div class="ra">Jane Lewis</div><div class="rm">Google Review</div></div>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq" class="fin" style="padding:100px 32px;background:#fff;position:relative;z-index:2">
+  <div class="sec-label" style="color:var(--gold)">Common Questions</div>
+  <h2 class="sec-title" style="color:var(--ink)">Answers From Your Friends at Anchor Roofing</h2>
+  <div style="max-width:740px;margin:0 auto">
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span>What services do you provide in Omaha, NE?</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><p>We provide a comprehensive range of roofing services in Omaha, NE, and surrounding areas. This includes residential and commercial roof repair, roof replacement, roof maintenance, commercial roof seal coating, and storm damage repair. Our team of experienced professionals is equipped to handle projects of all sizes and complexities.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span>How do I know if my roof needs repairs or replacement?</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><p>Signs that may indicate your roof needs attention include leaks or water stains inside your house, missing, cracked, or curling shingles, excessive shingle granules in your gutters, and a roof that's over 20-25 years old. If you notice any of these, we recommend scheduling a professional inspection.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span>How long does a typical roof last in Omaha, NE?</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><p>The lifespan varies depending on material, installation quality, and maintenance. Asphalt shingle roofs typically last 20-25 years, while metal and tile roofs can last longer. Regular inspections and maintenance help extend the lifespan of your roof.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span>Is your company licensed and insured?</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><p>Absolutely. We are a fully licensed and insured roofing company compliant with all state and local regulations. We carry insurance to protect you from any liability in the rare event of an accident during a project. We're happy to provide documentation of our credentials upon request.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span>How do I get a quote for my roofing project?</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><p>Contact us directly via phone at (402) 884-9491, email at info@anchorroofing.com, or our website's contact form. We'll set up a convenient time to discuss your project, assess your needs, and provide a detailed, no-obligation quote.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICE AREAS ═══ -->
+<section id="areas" class="fin" style="padding:100px 32px;background:#1a1f2e;position:relative;z-index:2">
+  <div class="sec-label">Service Areas</div>
+  <h2 class="sec-title">Proudly Serving Omaha &amp; Surrounding Areas</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:960px;margin:0 auto;align-items:center">
+    <div>
+      <p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:24px">Anchor Roofing has provided high-quality roofing services to the Omaha metro since 1982. We're locally owned, fully licensed, and deeply rooted in the communities we serve.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:24px">7702 S. 168th St., Ste. A, Omaha, NE 68136</p>
+      <div class="area-links">
+        <a href="https://anchorroofing.com/roofing-omaha/">Omaha</a>
+        <a href="https://anchorroofing.com/elkhorn-roofing-companies/">Elkhorn</a>
+        <a href="https://anchorroofing.com/papillion-roofing-companies/">Papillion</a>
+        <a href="https://anchorroofing.com/gretna-roofing-companies/">Gretna</a>
+        <a href="https://anchorroofing.com/la-vista-roofing-companies/">La Vista</a>
+        <a href="https://anchorroofing.com/millard-roofing-companies/">Millard</a>
+        <a href="https://anchorroofing.com/bennington-roofing-companies/">Bennington</a>
+        <a href="https://anchorroofing.com/waterloo-roofing-companies/">Waterloo</a>
+      </div>
+    </div>
+    <div style="border-radius:4px;overflow:hidden;aspect-ratio:4/3">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2998.5!2d-96.17862!3d41.1828403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8793f6c7a5e1c1d1%3A0x56a7e8d8c98d9f72!2sAnchor%20Roofing!5e0!3m2!1sen!2sus!4v1710000000000" width="100%" height="100%" style="border:0;filter:grayscale(.3) contrast(1.1)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section id="cta" class="fin">
+  <div class="cta-c">
+    <h2 class="cta-t">Ready for a Roofing Experience You'll Actually Enjoy?</h2>
+    <p class="cta-s">Start with a free, no-obligation roof inspection. We'll assess potential damage and repair needs of the entire roof system — from gutters and windows to ventilation. Then we'll walk you through everything, including how to file insurance claims if necessary.</p>
+    <div class="cta-b">
+      <a href="https://anchorroofing.com/contact-us/" class="btn-gold" target="_blank">Schedule Free Inspection</a>
+      <a href="tel:+14028849491" class="btn-ghost">Call (402) 884-9491</a>
+    </div>
+    <p class="cta-p">Mon-Fri: 8am-5pm · <a href="https://anchorroofing.com/contact-us/">Or contact us online anytime</a></p>
+  </div>
+</section>
+
+<!-- ═══ PARTNERS ═══ -->
+<section id="partners" class="fin">
+  <div class="partners-label">We Partner With the Best Brands in Roofing</div>
+  <div class="partners-row"><span class="pn">Owens Corning</span><span class="pn">CertainTeed</span><span class="pn">Carlisle SynTec</span><span class="pn">DaVinci Roofscapes</span><span class="pn">EcoStar</span><span class="pn">Sika</span><span class="pn">Belgard</span></div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="footer">
+  <div class="fgr">
+    <div class="fb">
+      <img src="images.jpg" alt="Anchor Roofing">
+      <p>In the business of building roofs AND relationships. Licensed, insured, and BBB accredited. Roofing experience dating back to 1982.</p>
+      <div style="margin-top:16px;display:flex;gap:6px;font-size:11px;color:rgba(255,255,255,.35)">
+        <span>Mon-Fri: 8am-5pm</span><span>·</span><span>Sat-Sun: Closed</span>
+      </div>
+      <div class="f-social">
+        <a href="https://www.facebook.com/AnchorRoofingCompany/" target="_blank" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/anchorroofing/" target="_blank" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://www.linkedin.com/company/anchor-roofing-of-omaha/" target="_blank" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      </div>
+      <a href="https://www.bbb.org/us/ne/omaha/profile/roofing-contractors/anchor-roofing-0714-300185060" target="_blank" style="display:inline-block;margin-top:16px;padding:6px 14px;border:1px solid rgba(255,255,255,.08);border-radius:4px;font-size:10px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(255,255,255,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">BBB Accredited Business</a>
+    </div>
+    <div class="fcol"><h4>Services</h4><a href="https://anchorroofing.com/roof-replacement-omaha/">Roof Replacement</a><a href="https://anchorroofing.com/roof-replacement-omaha/roof-repair-omaha/">Roof Repair</a><a href="https://anchorroofing.com/commercial-roofing-omaha/">Commercial Roofing</a><a href="https://anchorroofing.com/commercial-roofing-omaha/commercial-roof-repair/">Commercial Roof Repair</a><a href="https://anchorroofing.com/siding-installation/">Siding Installation</a><a href="https://anchorroofing.com/gutter-services/">Gutter Services</a><a href="https://anchorroofing.com/storm-damage-repair/">Storm Damage</a></div>
+    <div class="fcol"><h4>Service Areas</h4><a href="https://anchorroofing.com/roofing-omaha/">Omaha</a><a href="https://anchorroofing.com/elkhorn-roofing-companies/">Elkhorn</a><a href="https://anchorroofing.com/papillion-roofing-companies/">Papillion</a><a href="https://anchorroofing.com/gretna-roofing-companies/">Gretna</a><a href="https://anchorroofing.com/la-vista-roofing-companies/">La Vista</a><a href="https://anchorroofing.com/millard-roofing-companies/">Millard</a><a href="https://anchorroofing.com/bennington-roofing-companies/">Bennington</a><a href="https://anchorroofing.com/waterloo-roofing-companies/">Waterloo</a></div>
+    <div class="fcol"><h4>Company</h4><a href="https://anchorroofing.com/about-us/">About Us</a><a href="https://anchorroofing.com/read-our-reviews/">Google Reviews</a><a href="https://anchorroofing.com/faqs/">FAQ</a><a href="https://anchorroofing.com/careers/">Careers</a><a href="https://anchorroofing.com/blog-index/">Blog</a><a href="https://anchorroofing.com/contact-us/">Contact Us</a></div>
+  </div>
+  <div class="fbot">
+    <span>&copy; 2026 Anchor Roofing · 7702 S 168th St., Ste. A, Omaha, NE 68136 · <a href="tel:+14028849491" style="color:rgba(255,255,255,.3);text-decoration:none">(402) 884-9491</a> · <a href="mailto:info@anchorroofing.com" style="color:rgba(255,255,255,.3);text-decoration:none">info@anchorroofing.com</a></span>
+    <a href="https://anchorroofing.com/privacy-policy/">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+var SKY_N=192,HOUSE_N=192;
+var skyF=new Array(SKY_N),houseF=new Array(HOUSE_N);
+var total=SKY_N+HOUSE_N,loaded=0;
+
+function pad(n){return n<10?'000'+n:n<100?'00'+n:n<1000?'0'+n:''+n}
+function onLoad(){
+  loaded++;
+  var b=document.getElementById('lb');
+  if(b)b.style.width=Math.round((loaded/total)*100)+'%';
+  if(loaded===total)setTimeout(function(){
+    document.getElementById('loader').classList.add('hidden');
+    drawSky(0);drawHouse(0);
+    // Recalculate scroll offsets now that page is ready
+    if(typeof cache==='function')cache();
+  },300);
+}
+for(var i=0;i<SKY_N;i++){(function(x){var img=new Image();img.onload=onLoad;img.onerror=onLoad;img.src='sky/s_'+pad(x+1)+'.webp';skyF[x]=img})(i)}
+for(var i=0;i<HOUSE_N;i++){(function(x){var img=new Image();img.onload=onLoad;img.onerror=onLoad;img.src='roof/r_'+pad(x+1)+'.webp';houseF[x]=img})(i)}
+
+// Sky canvas
+var skyC=document.getElementById('sky-canvas'),skyCtx=skyC.getContext('2d');
+var curS=-1,sW=0,sH=0;
+function rSky(){var d=devicePixelRatio||1,w=innerWidth,h=innerHeight;skyC.width=w*d;skyC.height=h*d;skyC.style.width=w+'px';skyC.style.height=h+'px';sW=w*d;sH=h*d;var f=curS;curS=-1;if(f>=0)drawSky(f)}
+function drawSky(i){if(i===curS)return;var img=skyF[i];if(!img||!img.complete||!img.naturalWidth)return;curS=i;var r=img.naturalWidth/img.naturalHeight,c=sW/sH,dw,dh;if(c>r){dw=sW;dh=sW/r}else{dh=sH;dw=sH*r}skyCtx.drawImage(img,(sW-dw)/2,(sH-dh)/2,dw,dh)}
+
+// House canvas
+var hC=document.getElementById('house-canvas'),hCtx=hC.getContext('2d');
+var curH=-1,hW=0,hH=0;
+function rHouse(){var d=devicePixelRatio||1,w=hC.clientWidth||Math.min(720,innerWidth-48),h=hC.clientHeight||(w/(16/9));hC.width=w*d;hC.height=h*d;hW=w*d;hH=h*d;var f=curH;curH=-1;if(f>=0)drawHouse(f)}
+function drawHouse(i){if(i===curH)return;var img=houseF[i];if(!img||!img.complete||!img.naturalWidth)return;curH=i;hCtx.fillStyle='#fff';hCtx.fillRect(0,0,hW,hH);var r=img.naturalWidth/img.naturalHeight,c=hW/hH,dw,dh;if(c>r){dh=hH;dw=dh*r}else{dw=hW;dh=dw/r}hCtx.drawImage(img,(hW-dw)/2,(hH-dh)/2,dw,dh)}
+
+function resizeAll(){rSky();rHouse()}
+addEventListener('resize',resizeAll);rSky();rHouse();
+
+// Scroll
+var heroSec=document.getElementById('hero-section'),houseSec=document.getElementById('house-section');
+var skyDim=document.getElementById('sky-dim'),heroContent=document.getElementById('hero-content');
+var nav=document.getElementById('nav'),prog=document.getElementById('prog');
+var tagTop=document.getElementById('tag-top'),tagBottom=document.getElementById('tag-bottom');
+var hTop=0,hH2=0,hsTop=0,hsH=0;
+
+function cache(){hTop=heroSec.offsetTop;hH2=heroSec.offsetHeight-innerHeight;hsTop=houseSec.offsetTop;hsH=houseSec.offsetHeight-innerHeight}
+addEventListener('resize',cache);setTimeout(cache,400);
+
+var lastS=-1,lastH=-1;
+function scrollNow(){
+  var y=pageYOffset;
+  if(hH2>0){var p=Math.max(0,Math.min(1,(y-hTop)/hH2));var f=Math.min(SKY_N-1,Math.max(0,Math.round(p*(SKY_N-1))));if(f!==lastS){lastS=f;drawSky(f)}}
+  if(hsH>0){
+    var p2=Math.max(0,Math.min(1,(y-hsTop)/hsH));
+    var f2=Math.min(HOUSE_N-1,Math.max(0,Math.round(p2*(HOUSE_N-1))));
+    if(f2!==lastH){lastH=f2;drawHouse(f2)}
+  }
+}
+
+var raf=false;
+function scrollUI(){
+  if(raf)return;raf=true;
+  requestAnimationFrame(function(){raf=false;
+    var y=pageYOffset,dH=document.documentElement.scrollHeight-innerHeight;
+    prog.style.width=((y/dH)*100)+'%';
+    // Nav is fixed — no scroll transforms
+
+    if(hH2>0){var p=Math.max(0,Math.min(1,(y-hTop)/hH2));var fadeP=Math.max(0,(p-0.15)/0.35);heroContent.style.opacity=Math.max(0,1-fadeP);heroContent.style.transform='translateY('+(-fadeP*40)+'px)';skyDim.style.opacity=Math.max(0,.35-p*.4)}
+    if(hsH>0){
+      var sp=Math.max(0,Math.min(1,(y-hsTop)/hsH));
+      // "Your Roof" above — appears early
+      if(sp>=0.03)tagTop.classList.add('vis');
+      // "Our Anchor" + logo below — appears as roof completes
+      if(sp>=0.60)tagBottom.querySelector('.tag-bot-text').classList.add('vis');
+      if(sp>=0.70)tagBottom.querySelector('.tag-bot-logo').classList.add('vis');
+      if(sp>=0.80)tagBottom.querySelector('.tag-bot-sub').classList.add('vis');
+    }
+  });
+}
+addEventListener('scroll',scrollNow,{passive:true});
+addEventListener('scroll',scrollUI,{passive:true});
+
+// Specs
+var snums=document.querySelectorAll('.snum'),counted=false;
+function eo(t){return t===1?1:1-Math.pow(2,-10*t)}
+function cu(el,dl){setTimeout(function(){var tg=parseInt(el.getAttribute('data-target')),sf=el.getAttribute('data-suffix')||'',dc=el.getAttribute('data-decimal')==='true',dur=1400,st=performance.now();el.classList.add('counting');function tk(now){var p=Math.min((now-st)/dur,1),e=eo(p);el.textContent=dc?(e*tg).toFixed(1)+sf:Math.round(e*tg)+sf;if(p<1)requestAnimationFrame(tk);else el.classList.remove('counting')}requestAnimationFrame(tk)},dl)}
+new IntersectionObserver(function(e){for(var i=0;i<e.length;i++)if(e[i].isIntersecting&&!counted){counted=true;for(var j=0;j<snums.length;j++)cu(snums[j],j*150)}},{threshold:.3}).observe(document.getElementById('specs'));
+
+// Fade-in
+var fObs=new IntersectionObserver(function(e){for(var i=0;i<e.length;i++)if(e[i].isIntersecting)e[i].target.classList.add('vis')},{threshold:.08});
+document.querySelectorAll('.fin').forEach(function(el){fObs.observe(el)});
+
+// Reviews
+var track=document.getElementById('rt'),tCards=track.querySelectorAll('.rc'),dots=document.getElementById('dots'),dragging=false,sx,sl;
+for(var d=0;d<tCards.length;d++){var dot=document.createElement('button');dot.className='dot'+(d===0?' on':'');dot.setAttribute('data-i',d);dot.addEventListener('click',function(){track.scrollTo({left:parseInt(this.getAttribute('data-i'))*(tCards[0].offsetWidth+20),behavior:'smooth'})});dots.appendChild(dot)}
+track.addEventListener('scroll',function(){var w=tCards[0].offsetWidth+20,a=Math.round(track.scrollLeft/w),ds=dots.querySelectorAll('.dot');for(var i=0;i<ds.length;i++){if(i===a)ds[i].classList.add('on');else ds[i].classList.remove('on')}});
+track.addEventListener('mousedown',function(e){dragging=true;sx=e.pageX-track.offsetLeft;sl=track.scrollLeft});
+track.addEventListener('mouseleave',function(){dragging=false});track.addEventListener('mouseup',function(){dragging=false});
+track.addEventListener('mousemove',function(e){if(!dragging)return;e.preventDefault();track.scrollLeft=sl-((e.pageX-track.offsetLeft)-sx)*1.5});
+
+// Skip button — jump past the house video section
+document.getElementById('skip-btn').addEventListener('click',function(){
+  var target=houseSec.offsetTop+houseSec.offsetHeight;
+  window.scrollTo({top:target,behavior:'smooth'});
+});
+
+setTimeout(function(){if(skyF[0]&&skyF[0].complete)drawSky(0);if(houseF[0]&&houseF[0].complete)drawHouse(0)},200);
+})();
+</script>
+</body>
+</html>
