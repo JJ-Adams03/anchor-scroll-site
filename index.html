@@ -611,8 +611,9 @@ function onLoad(){
   if(loaded===total)setTimeout(function(){
     document.getElementById('loader').classList.add('hidden');
     drawSky(0);drawHouse(0);
-    // Recalculate scroll offsets now that page is ready
-    if(typeof cache==='function')cache();
+    // Recalculate scroll offsets and sync frame to current position
+    if(typeof cacheAll==='function')cacheAll();
+    if(typeof onScroll==='function')onScroll();
   },300);
 }
 for(var i=0;i<SKY_N;i++){(function(x){var img=new Image();img.onload=onLoad;img.onerror=onLoad;img.src='sky/s_'+pad(x+1)+'.webp';skyF[x]=img})(i)}
@@ -621,13 +622,14 @@ for(var i=0;i<HOUSE_N;i++){(function(x){var img=new Image();img.onload=onLoad;im
 // Sky canvas
 var skyC=document.getElementById('sky-canvas'),skyCtx=skyC.getContext('2d');
 var curS=-1,sW=0,sH=0;
-function rSky(){var d=devicePixelRatio||1,w=innerWidth,h=innerHeight;skyC.width=w*d;skyC.height=h*d;skyC.style.width=w+'px';skyC.style.height=h+'px';sW=w*d;sH=h*d;var f=curS;curS=-1;if(f>=0)drawSky(f)}
+function cappedDPR(){var d=devicePixelRatio||1;return(innerWidth<=768)?Math.min(d,2):d}
+function rSky(){var d=cappedDPR(),w=innerWidth,h=innerHeight;skyC.width=w*d;skyC.height=h*d;skyC.style.width=w+'px';skyC.style.height=h+'px';sW=w*d;sH=h*d;var f=curS;curS=-1;if(f>=0)drawSky(f)}
 function drawSky(i){if(i===curS)return;var img=skyF[i];if(!img||!img.complete||!img.naturalWidth)return;curS=i;var r=img.naturalWidth/img.naturalHeight,c=sW/sH,dw,dh;if(c>r){dw=sW;dh=sW/r}else{dh=sH;dw=sH*r}skyCtx.drawImage(img,(sW-dw)/2,(sH-dh)/2,dw,dh)}
 
 // House canvas
 var hC=document.getElementById('house-canvas'),hCtx=hC.getContext('2d');
 var curH=-1,hW=0,hH=0;
-function rHouse(){var d=devicePixelRatio||1,w=hC.clientWidth||Math.min(720,innerWidth-48),h=hC.clientHeight||(w/(16/9));hC.width=w*d;hC.height=h*d;hW=w*d;hH=h*d;var f=curH;curH=-1;if(f>=0)drawHouse(f)}
+function rHouse(){var d=cappedDPR(),w=hC.clientWidth||Math.min(720,innerWidth-48),h=hC.clientHeight||(w/(16/9));hC.width=w*d;hC.height=h*d;hW=w*d;hH=h*d;var f=curH;curH=-1;if(f>=0)drawHouse(f)}
 function drawHouse(i){if(i===curH)return;var img=houseF[i];if(!img||!img.complete||!img.naturalWidth)return;curH=i;hCtx.fillStyle='#fff';hCtx.fillRect(0,0,hW,hH);var r=img.naturalWidth/img.naturalHeight,c=hW/hH,dw,dh;if(c>r){dh=hH;dw=dh*r}else{dw=hW;dh=dw/r}hCtx.drawImage(img,(hW-dw)/2,(hH-dh)/2,dw,dh)}
 
 function resizeAll(){rSky();rHouse()}
@@ -641,11 +643,10 @@ var tagTop=document.getElementById('tag-top'),tagBottom=document.getElementById(
 var hTop=0,hH2=0,hsTop=0,hsH=0;
 
 function cache(){hTop=heroSec.offsetTop;hH2=heroSec.offsetHeight-innerHeight;hsTop=houseSec.offsetTop;hsH=houseSec.offsetHeight-innerHeight}
-addEventListener('resize',cache);setTimeout(cache,400);
+function cacheAll(){cache();cachedDH=document.documentElement.scrollHeight-innerHeight}
+addEventListener('resize',cacheAll);
 
 var lastS=-1,lastH=-1,cachedDH=0;
-function updateCachedDH(){cachedDH=document.documentElement.scrollHeight-innerHeight}
-addEventListener('resize',updateCachedDH);setTimeout(updateCachedDH,400);
 
 var scrollTick=false;
 function onScroll(){
